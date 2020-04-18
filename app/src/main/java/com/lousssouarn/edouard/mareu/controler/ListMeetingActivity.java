@@ -1,4 +1,4 @@
-package com.lousssouarn.edouard.mareu;
+package com.lousssouarn.edouard.mareu.controler;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.Menu;
+
+import com.lousssouarn.edouard.mareu.R;
 
 public class ListMeetingActivity extends AppCompatActivity {
 
