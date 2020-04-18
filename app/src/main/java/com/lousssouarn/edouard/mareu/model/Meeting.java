@@ -14,8 +14,8 @@ public class Meeting {
     /** time*/
     private String time;
 
-    /** meeting room*/
-    private String meetingRoom;
+    /** meeting room name*/
+    private String roomName;
 
     /** participants*/
     private String participants;
@@ -24,7 +24,7 @@ public class Meeting {
         this.color = color;
         this.subject = subject;
         this.time = time;
-        this.meetingRoom = meetingRoom;
+        this.roomName = meetingRoom;
         this.participants = participants;
     }
 
@@ -53,11 +53,11 @@ public class Meeting {
     }
 
     public String getMeetingRoom() {
-        return meetingRoom;
+        return roomName;
     }
 
     public void setMeetingRoom(String meetingRoom) {
-        this.meetingRoom = meetingRoom;
+        this.roomName = meetingRoom;
     }
 
     public String getParticipants() {
