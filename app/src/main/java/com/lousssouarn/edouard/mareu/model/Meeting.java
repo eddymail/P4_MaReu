@@ -1,6 +1,5 @@
 package com.lousssouarn.edouard.mareu.model;
 
-import java.util.List;
 
 /**
  * Model object representing a Neighbour
@@ -19,5 +18,54 @@ public class Meeting {
     private String meetingRoom;
 
     /** participants*/
-    private List<String> participants;
+    private String participants;
+
+    public Meeting(int color, String subject, String time, String meetingRoom, String participants) {
+        this.color = color;
+        this.subject = subject;
+        this.time = time;
+        this.meetingRoom = meetingRoom;
+        this.participants = participants;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getMeetingRoom() {
+        return meetingRoom;
+    }
+
+    public void setMeetingRoom(String meetingRoom) {
+        this.meetingRoom = meetingRoom;
+    }
+
+    public String getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(String participants) {
+        this.participants = participants;
+    }
 }
+
