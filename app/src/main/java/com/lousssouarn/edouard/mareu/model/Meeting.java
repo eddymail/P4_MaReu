@@ -5,19 +5,29 @@ package com.lousssouarn.edouard.mareu.model;
  * Model object representing a Neighbour
  */
 public class Meeting {
-    /** color */
+    /**
+     * color
+     */
     private int color;
 
-    /** Subject */
+    /**
+     * Subject
+     */
     private String subject;
 
-    /** time*/
+    /**
+     * time
+     */
     private String time;
 
-    /** meeting room name*/
+    /**
+     * meeting room name
+     */
     private String roomName;
 
-    /** participants*/
+    /**
+     * participants
+     */
     private String participants;
 
     public Meeting(int color, String subject, String time, String meetingRoom, String participants) {
@@ -52,12 +62,12 @@ public class Meeting {
         this.time = time;
     }
 
-    public String getMeetingRoom() {
+    public String getRoomName() {
         return roomName;
     }
 
-    public void setMeetingRoom(String meetingRoom) {
-        this.roomName = meetingRoom;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public String getParticipants() {
