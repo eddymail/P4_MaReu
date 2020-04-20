@@ -1,6 +1,6 @@
 package com.lousssouarn.edouard.mareu.controler;
 
-import androidx.appcompat.app.ActionBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,8 +17,6 @@ import com.lousssouarn.edouard.mareu.views.MeetingRecyclerViewAdapter;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ListMeetingActivity extends AppCompatActivity {
 
@@ -27,21 +25,14 @@ public class ListMeetingActivity extends AppCompatActivity {
    private RecyclerView mRecyclerView;
    private MeetingRecyclerViewAdapter mAdapter;
 
-    //UI Components
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_meeting);
 
-        ButterKnife.bind(this);
+        this.configureToolbar();
+
         mApiService = DI.getMeetingApiService();
-
-
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
 
         mRecyclerView = findViewById(R.id.meeting_list);
 
@@ -51,17 +42,23 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         initList();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //2 - Inflate the menu and add it to the Toolbar
+        getMenuInflater().inflate(R.menu.menu_activity_list_meeting, menu);
+        return true;
+    }
+
+    private void configureToolbar(){
+        // Get the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar
+        setSupportActionBar(toolbar);
+    }
 
     //Init the list of meeting
     private void initList(){
         mMeetings = mApiService.getMeetings();
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_activity_list_meeting,menu);
-        return true;
     }
 }
