@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.lousssouarn.edouard.mareu.R;
+import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.model.Meeting;
 import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 import com.lousssouarn.edouard.mareu.views.MeetingRecyclerViewAdapter;
@@ -17,6 +18,7 @@ import com.lousssouarn.edouard.mareu.views.MeetingRecyclerViewAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ListMeetingActivity extends AppCompatActivity {
 
@@ -29,12 +31,14 @@ public class ListMeetingActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_meeting);
+
+        ButterKnife.bind(this);
+        mApiService = DI.getMeetingApiService();
+
 
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();

@@ -4,18 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.model.Meeting;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
@@ -27,7 +25,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         mMeetings = items;
     }
 
+
     @Override
+    @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting, parent, false);
         return new ViewHolder(view);
@@ -42,25 +42,25 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public int getItemCount() {
         return mMeetings.size();
     }
+
+
     //ViewHolder
-    public class ViewHolder extends RecyclerView.ViewHolder{
-            @BindView(R.id.item_room_color)
-            public ImageView mRoomColor;
-            @BindView(R.id.item_subject)
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+            public AppCompatImageView mRoomColor;
             public TextView mSubject;
-            @BindView(R.id.item_time)
-            public  TextView mTime;
-            @BindView(R.id.item_room)
+            public TextView mTime;
             public TextView mRoomName;
-            @BindView(R.id.item_participants)
             public TextView mParticipants;
-            @BindView(R.id.item_delete_button)
             public ImageButton mDeleteButton;
 
-
-            public ViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            mRoomColor = view.findViewById(R.id.item_room_color);
+            mSubject = view.findViewById(R.id.item_subject);
+            mTime = view.findViewById(R.id.item_time);
+            mRoomName = view.findViewById(R.id.item_room);
+            mParticipants = view.findViewById(R.id.item_participants);
+            mDeleteButton = view.findViewById(R.id.item_delete_button);
         }
         void display(Meeting meeting){
                 mRoomColor.setColorFilter(meeting.getColor());
@@ -68,7 +68,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 mTime.setText(meeting.getTime());
                 mRoomName.setText(meeting.getRoomName());
                 mParticipants.setText(meeting.getParticipants());
-
         }
 
     }
