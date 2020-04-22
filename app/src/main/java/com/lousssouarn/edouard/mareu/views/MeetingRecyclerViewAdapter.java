@@ -63,7 +63,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             mDeleteButton = view.findViewById(R.id.item_delete_button);
         }
         void display(Meeting meeting){
-                mRoomColor.setColorFilter(meeting.getColor());
+                mRoomColor.setBackgroundColor(meeting.getColor());
                 mSubject.setText(meeting.getSubject());
                 mTime.setText(meeting.getTime());
                 mRoomName.setText(meeting.getRoomName());
