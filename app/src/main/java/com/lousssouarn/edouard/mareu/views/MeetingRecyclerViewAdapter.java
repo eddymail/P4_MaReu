@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.model.Meeting;
+import com.lousssouarn.edouard.mareu.service.DummyMeetingApiService;
 
 import java.util.List;
 
@@ -36,6 +37,13 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.display(mMeetings.get(position));
+
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              
+            }
+        });
     }
 
     @Override

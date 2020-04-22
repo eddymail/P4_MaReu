@@ -23,4 +23,12 @@ public class DummyMeetingApiService implements MeetingApiService {
         meetings.remove(meeting);
     }
 
+    /**
+     * {@inheritDoc}
+     * @param meeting
+     */
+    @Override
+    public void createMeeting(Meeting meeting) {
+        meetings.add(meeting);
+    }
 }
