@@ -30,37 +30,15 @@
         app:layout_constraintStart_toEndOf="@+id/item_room_color"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/item_subject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-            <TextView
-                android:id="@+id/item_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-            <TextView
-                android:id="@+id/item_room"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-        </LinearLayout>
-
-        <EditText
+        <TextView
             android:id="@+id/item_participants"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
