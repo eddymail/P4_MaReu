@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.model.Meeting;
-import com.lousssouarn.edouard.mareu.service.DummyMeetingApiService;
+
 
 import java.util.List;
 
@@ -35,15 +35,18 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.display(mMeetings.get(position));
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              
+                notifyItemRemoved(position);
+                mMeetings.remove(position);
+                notifyItemRangeChanged(position, mMeetings.size());
             }
         });
+
     }
 
     @Override
@@ -60,21 +63,24 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             public TextView mRoomName;
             public TextView mParticipants;
             public ImageButton mDeleteButton;
+            public TextView mInfo;
 
         public ViewHolder(View view) {
             super(view);
             mRoomColor = view.findViewById(R.id.item_room_color);
-            mSubject = view.findViewById(R.id.item_subject);
-            mTime = view.findViewById(R.id.item_time);
-            mRoomName = view.findViewById(R.id.item_room);
+            mInfo = view.findViewById(R.id.info);
+            //mSubject = view.findViewById(R.id.item_subject);
+            //mTime = view.findViewById(R.id.item_time);
+            //mRoomName = view.findViewById(R.id.item_room);
             mParticipants = view.findViewById(R.id.item_participants);
             mDeleteButton = view.findViewById(R.id.item_delete_button);
         }
         void display(Meeting meeting){
                 mRoomColor.setBackgroundColor(meeting.getColor());
-                mSubject.setText(meeting.getSubject());
-                mTime.setText(meeting.getTime());
-                mRoomName.setText(meeting.getRoomName());
+                mInfo.setText(meeting.getSubject() + " - " + meeting.getTime() + " - " + meeting.getRoomName());
+                //mSubject.setText(meeting.getSubject());
+                //mTime.setText(meeting.getTime());
+                //mRoomName.setText(meeting.getRoomName());
                 mParticipants.setText(meeting.getParticipants());
         }
 
