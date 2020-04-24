@@ -3,9 +3,11 @@ package com.lousssouarn.edouard.mareu.controler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -50,7 +52,8 @@ public class ListMeetingActivity extends AppCompatActivity {
         mAddMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            Intent addMeetingIntent = new Intent(ListMeetingActivity.this, AddMeeting.class);
+            startActivity(addMeetingIntent);
             }
         });
 
