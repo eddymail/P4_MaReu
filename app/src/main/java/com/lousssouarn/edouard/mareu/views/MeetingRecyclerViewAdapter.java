@@ -58,29 +58,23 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     //ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder{
             public AppCompatImageView mRoomColor;
-            public TextView mSubject;
-            public TextView mTime;
-            public TextView mRoomName;
             public TextView mParticipants;
             public ImageButton mDeleteButton;
             public TextView mInfo;
 
+     //Constructor
         public ViewHolder(View view) {
             super(view);
             mRoomColor = view.findViewById(R.id.item_room_color);
             mInfo = view.findViewById(R.id.info);
-            //mSubject = view.findViewById(R.id.item_subject);
-            //mTime = view.findViewById(R.id.item_time);
-            //mRoomName = view.findViewById(R.id.item_room);
             mParticipants = view.findViewById(R.id.item_participants);
             mDeleteButton = view.findViewById(R.id.item_delete_button);
         }
+
+        //item setText and color
         void display(Meeting meeting){
                 mRoomColor.setBackgroundColor(meeting.getColor());
                 mInfo.setText(meeting.getSubject() + " - " + meeting.getTime() + " - " + meeting.getRoomName());
-                //mSubject.setText(meeting.getSubject());
-                //mTime.setText(meeting.getTime());
-                //mRoomName.setText(meeting.getRoomName());
                 mParticipants.setText(meeting.getParticipants());
         }
 

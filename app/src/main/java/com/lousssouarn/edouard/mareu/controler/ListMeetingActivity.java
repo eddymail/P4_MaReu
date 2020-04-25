@@ -46,9 +46,7 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
 
-        initList();
-
-        mAddMeetingButton = (ImageButton) findViewById(R.id.add_item);
+        mAddMeetingButton = findViewById(R.id.add_item);
         mAddMeetingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +55,7 @@ public class ListMeetingActivity extends AppCompatActivity {
             }
         });
 
+        initList();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

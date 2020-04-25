@@ -1,7 +1,9 @@
 package com.lousssouarn.edouard.mareu.controler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,17 +11,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.di.DI;
+import com.lousssouarn.edouard.mareu.fragments.TimePickerFragment;
 import com.lousssouarn.edouard.mareu.model.Meeting;
 import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 
-public class AddMeeting extends AppCompatActivity {
-
+public class AddMeeting extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private MeetingApiService mApiService;
-    String inputMeetingRoom;
+    private String inputMeetingRoom;
     private int newMeetingColor;
 
     @Override
@@ -27,30 +30,46 @@ public class AddMeeting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_meeting);
 
-        AutoCompleteTextView mEdiTextRoomInput = findViewById(R.id.actv_room);
-
-        Button mButtonNewMeeting = findViewById(R.id.bt_new_meeting);
-
         mApiService = DI.getMeetingApiService();
 
+        //AutoComplete meeting room list
         String[] meetingRooms = getResources().getStringArray(R.array.nameRooms);
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, meetingRooms);
+        AutoCompleteTextView mEdiTextRoomInput = findViewById(R.id.actv_room);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetingRooms);
         mEdiTextRoomInput.setAdapter(adapter);
 
-        //String inputMeetingRoom = mEdiTextRoomInput.getText().toString();
 
+
+        //open TimePickerFragment when a click is performed
+        Button mTimeButton = findViewById(R.id.bt_time_piker);
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+
+        //add new meeting when button is clicked
+        Button mButtonNewMeeting = findViewById(R.id.bt_new_meeting);
         mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            addMeeting();
-                }
+                addMeeting();
+            }
         });
+
+    }
+    //Set the chosen time in the TextView
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        TextView mTimeTextView = findViewById(R.id.tv_time);
+        mTimeTextView.setText(hourOfDay + " : " + minute);
     }
 
+    //Get the color of the room according to the chosen room
     public int getRoomColor(AutoCompleteTextView mEdiTextRoomInput) {
-        switch (inputMeetingRoom= mEdiTextRoomInput.getText().toString()) {
+        switch (inputMeetingRoom = mEdiTextRoomInput.getText().toString()) {
             case "Bangkok":
                 newMeetingColor = 0xFFEF5350;
                 break;
@@ -86,13 +105,14 @@ public class AddMeeting extends AppCompatActivity {
         return newMeetingColor;
     }
 
-    public void addMeeting(){
+    //Add the created meeting
+    public void addMeeting() {
         AutoCompleteTextView mEdiTextRoomInput = findViewById(R.id.actv_room);
         EditText mEditTextNameInput = findViewById(R.id.et_name);
-        EditText mEditTextDateInput = findViewById(R.id.et_date);
+        TextView mEditTextDateInput = findViewById(R.id.tv_time);
         EditText mEditTextParticipantsInput = findViewById(R.id.et_participants);
         int color = getRoomColor(mEdiTextRoomInput);
-        Meeting  meeting = new Meeting(
+        Meeting meeting = new Meeting(
                 color,
                 mEditTextNameInput.getText().toString(),
                 mEditTextDateInput.getText().toString(),
@@ -101,5 +121,7 @@ public class AddMeeting extends AppCompatActivity {
         );
         mApiService.addMeeting(meeting);
         finish();
-   }
+    }
+
+
 }
