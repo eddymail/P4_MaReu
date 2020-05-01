@@ -11,8 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
         android:text="Création d'une réunion"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/actv_room"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,39 +46,25 @@
         android:ems="10"
         android:hint="Nom de la réunion "
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/tv_time"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_date_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actv_room" />
 
-    <TextView
-        android:id="@+id/tv_time"
+    <EditText
+        android:id="@+id/et_date_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:hint="heure de la réunion"
-        android:inputType="datetime"
+        android:hint="Choisir date et heure"
+        android:inputType="none"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/bt_time_piker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_name" />
-
-    <Button
-        android:id="@+id/bt_time_piker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="choisir  heure"
-        app:layout_constraintBottom_toTopOf="@+id/et_participants"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
     <EditText
         android:id="@+id/et_participants"
@@ -89,17 +77,19 @@
         android:ems="10"
         android:hint="Saisir mail des participants"
         android:inputType="textEmailAddress"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/bt_new_meeting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_time_piker" />
+        app:layout_constraintTop_toBottomOf="@+id/et_date_time" />
 
     <Button
         android:id="@+id/bt_new_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="creer nouvelle reunion"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_participants" />
