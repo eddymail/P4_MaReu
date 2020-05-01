@@ -30,10 +30,10 @@ public class AddMeeting extends AppCompatActivity {
 
     AutoCompleteTextView mEdiTextRoomInput;
     EditText mEditTextNameInput;
-    EditText mEditTextDateTimeInput;
+    EditText mEditTextDateInput;
+    EditText mEditTextTimeInput;
     EditText mEditTextParticipantsInput;
     Button mButtonNewMeeting;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +42,17 @@ public class AddMeeting extends AppCompatActivity {
 
         mApiService = DI.getMeetingApiService();
 
+        mEditTextDateInput = findViewById(R.id.et_date);
+        mEditTextTimeInput = findViewById(R.id.et_time);
+        mEdiTextRoomInput = findViewById(R.id.actv_room);
+
         // hiding keyboard when EditText is click
-        mEditTextDateTimeInput = findViewById(R.id.et_date_time);
-        mEditTextDateTimeInput.setInputType(InputType.TYPE_NULL);
+
+        mEditTextDateInput.setInputType(InputType.TYPE_NULL);
+        mEditTextTimeInput.setInputType(InputType.TYPE_NULL);
 
         //AutoComplete meeting room list
         String[] meetingRooms = getResources().getStringArray(R.array.nameRooms);
-        mEdiTextRoomInput = findViewById(R.id.actv_room);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetingRooms);
         mEdiTextRoomInput.setAdapter(adapter);
 
@@ -63,46 +67,60 @@ public class AddMeeting extends AppCompatActivity {
         });
 
         //edit Date and Time
-
-        mEditTextDateTimeInput.setOnClickListener(new View.OnClickListener() {
+        mEditTextDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimePickerDialog(mEditTextDateTimeInput);
+                showDateDialog(mEditTextDateInput);
+            }
+        });
+        mEditTextTimeInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowTimeDialog(mEditTextTimeInput);
             }
         });
 
     }
 
-    private void showDateTimePickerDialog(EditText editTextDateTimeInput) {
-        // creating a calendar instance
+    private void ShowTimeDialog(EditText editTextTimeInput) {
         final Calendar calendar = Calendar.getInstance();
-        // creating a DatePicker DateSet Listener
+        //creating a TimeSet Listener
+        TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            //Set the Time Value into Calendar
+                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                calendar.set(Calendar.MINUTE,minute);
+                //Formatting the Time
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH : mm");
+                //Setting Time into EditText
+                mEditTextTimeInput.setText(simpleDateFormat.format(calendar.getTime()));
+            }
+        };
+        //creating TimePiker Dialog
+        new  TimePickerDialog(AddMeeting.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+
+    }
+
+    private void showDateDialog(EditText editTextDateInput) {
+        final Calendar calendar = Calendar.getInstance();
+        //creating a DateSet Listener
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
+                //Set the Date Value into Calendar
+                calendar.set(Calendar.YEAR,year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                //creating a TimePicker TimeSet Listner
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-                        //formatting date and time
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                        //setting the value in EditText
-                        mEditTextDateTimeInput.setText(simpleDateFormat.format(calendar.getTime()));
-
-                    }
-                };
-                new TimePickerDialog(AddMeeting.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-
+                //Formatting the Date
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd - MM - yyyy");
+                //Setting Date into EditText
+                mEditTextDateInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
 
-        new DatePickerDialog(AddMeeting.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+        //creating DatePicker Dialog
+        new DatePickerDialog(AddMeeting.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     //Get the color of the room according to the chosen room
@@ -146,13 +164,13 @@ public class AddMeeting extends AppCompatActivity {
     //Add the created meeting
     public void addMeeting() {
         mEditTextNameInput = findViewById(R.id.et_name);
-        mEditTextDateTimeInput = findViewById(R.id.et_date_time);
+        mEditTextTimeInput = findViewById(R.id.et_time);
         mEditTextParticipantsInput = findViewById(R.id.et_participants);
         int color = getRoomColor(mEdiTextRoomInput);
         Meeting meeting = new Meeting(
                 color,
                 mEditTextNameInput.getText().toString(),
-                mEditTextDateTimeInput.getText().toString(),
+                mEditTextTimeInput.getText().toString(),
                 mEdiTextRoomInput.getText().toString(),
                 mEditTextParticipantsInput.getText().toString()
         );
