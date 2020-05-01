@@ -14,23 +14,19 @@
         android:layout_marginBottom="24dp"
         android:text="Création d'une réunion"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/actv_room"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_room"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <AutoCompleteTextView
-        android:id="@+id/actv_room"
+    <Spinner
+        android:id="@+id/spinner_room"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:completionHint="Choisir une salle"
-        android:completionThreshold="1"
-        android:hint="Choisir une salle"
-        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/et_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -52,7 +48,7 @@
         app:layout_constraintBottom_toTopOf="@+id/et_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actv_room" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_room" />
 
     <EditText
         android:id="@+id/et_date"

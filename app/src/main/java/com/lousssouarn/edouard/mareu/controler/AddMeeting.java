@@ -7,11 +7,13 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.lousssouarn.edouard.mareu.R;
@@ -22,17 +24,18 @@ import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AddMeeting extends AppCompatActivity {
+public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private MeetingApiService mApiService;
     private String inputMeetingRoom;
     private int newMeetingColor;
+    private String room;
 
-    AutoCompleteTextView mEdiTextRoomInput;
-    EditText mEditTextNameInput;
-    EditText mEditTextDateInput;
-    EditText mEditTextTimeInput;
-    EditText mEditTextParticipantsInput;
+    Spinner mRoomInput;
+    EditText mNameInput;
+    EditText mDateInput;
+    EditText mTimeInput;
+    EditText mParticipantsInput;
     Button mButtonNewMeeting;
 
     @Override
@@ -42,19 +45,20 @@ public class AddMeeting extends AppCompatActivity {
 
         mApiService = DI.getMeetingApiService();
 
-        mEditTextDateInput = findViewById(R.id.et_date);
-        mEditTextTimeInput = findViewById(R.id.et_time);
-        mEdiTextRoomInput = findViewById(R.id.actv_room);
+        mDateInput = findViewById(R.id.et_date);
+        mTimeInput = findViewById(R.id.et_time);
+        mRoomInput = findViewById(R.id.spinner_room);
 
         // hiding keyboard when EditText is click
 
-        mEditTextDateInput.setInputType(InputType.TYPE_NULL);
-        mEditTextTimeInput.setInputType(InputType.TYPE_NULL);
+        mDateInput.setInputType(InputType.TYPE_NULL);
+        mTimeInput.setInputType(InputType.TYPE_NULL);
 
-        //AutoComplete meeting room list
-        String[] meetingRooms = getResources().getStringArray(R.array.nameRooms);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetingRooms);
-        mEdiTextRoomInput.setAdapter(adapter);
+        //Spinner meeting room list
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.nameRooms, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mRoomInput.setAdapter(adapter);
+        mRoomInput.setOnItemSelectedListener(this);
 
 
         //add new meeting when button is clicked
@@ -67,16 +71,16 @@ public class AddMeeting extends AppCompatActivity {
         });
 
         //edit Date and Time
-        mEditTextDateInput.setOnClickListener(new View.OnClickListener() {
+        mDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateDialog(mEditTextDateInput);
+                showDateDialog(mDateInput);
             }
         });
-        mEditTextTimeInput.setOnClickListener(new View.OnClickListener() {
+        mTimeInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowTimeDialog(mEditTextTimeInput);
+                ShowTimeDialog(mTimeInput);
             }
         });
 
@@ -94,7 +98,7 @@ public class AddMeeting extends AppCompatActivity {
                 //Formatting the Time
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH : mm");
                 //Setting Time into EditText
-                mEditTextTimeInput.setText(simpleDateFormat.format(calendar.getTime()));
+                mTimeInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
         //creating TimePiker Dialog
@@ -115,7 +119,7 @@ public class AddMeeting extends AppCompatActivity {
                 //Formatting the Date
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd - MM - yyyy");
                 //Setting Date into EditText
-                mEditTextDateInput.setText(simpleDateFormat.format(calendar.getTime()));
+                mDateInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
 
@@ -124,8 +128,8 @@ public class AddMeeting extends AppCompatActivity {
     }
 
     //Get the color of the room according to the chosen room
-    public int getRoomColor(AutoCompleteTextView mEdiTextRoomInput) {
-        switch (inputMeetingRoom = mEdiTextRoomInput.getText().toString()) {
+    public int getRoomColor(Spinner roomInput) {
+        switch (room) {
             case "Bangkok":
                 newMeetingColor = 0xFFEF5350;
                 break;
@@ -163,20 +167,29 @@ public class AddMeeting extends AppCompatActivity {
 
     //Add the created meeting
     public void addMeeting() {
-        mEditTextNameInput = findViewById(R.id.et_name);
-        mEditTextTimeInput = findViewById(R.id.et_time);
-        mEditTextParticipantsInput = findViewById(R.id.et_participants);
-        int color = getRoomColor(mEdiTextRoomInput);
+        mNameInput = findViewById(R.id.et_name);
+        mTimeInput = findViewById(R.id.et_time);
+        mParticipantsInput = findViewById(R.id.et_participants);
+        int color = getRoomColor(mRoomInput);
         Meeting meeting = new Meeting(
                 color,
-                mEditTextNameInput.getText().toString(),
-                mEditTextTimeInput.getText().toString(),
-                mEdiTextRoomInput.getText().toString(),
-                mEditTextParticipantsInput.getText().toString()
+                mNameInput.getText().toString(),
+                mTimeInput.getText().toString(),
+                room,
+                mParticipantsInput.getText().toString()
         );
         mApiService.addMeeting(meeting);
         finish();
     }
 
+    //Get the meeting room chose
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        room = parent.getItemAtPosition(position).toString();
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
