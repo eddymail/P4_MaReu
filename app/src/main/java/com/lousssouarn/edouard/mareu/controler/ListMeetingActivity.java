@@ -54,8 +54,6 @@ public class ListMeetingActivity extends AppCompatActivity {
             startActivity(addMeetingIntent);
             }
         });
-
-        initList();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,5 +73,11 @@ public class ListMeetingActivity extends AppCompatActivity {
     private void initList(){
         mMeetings = mApiService.getMeetings();
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initList();
     }
 }
