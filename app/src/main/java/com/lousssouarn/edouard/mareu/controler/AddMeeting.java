@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,7 +46,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
 
         mDateInput = findViewById(R.id.et_date);
         mTimeInput = findViewById(R.id.et_time);
-        mRoomInput = findViewById(R.id.spinner_room);
+        mRoomInput = findViewById(R.id.sp_room);
 
         // hiding keyboard when EditText is click
         mDateInput.setInputType(InputType.TYPE_NULL);
@@ -58,7 +57,6 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRoomInput.setAdapter(adapter);
         mRoomInput.setOnItemSelectedListener(this);
-
 
         //add new meeting when button is clicked
         mButtonNewMeeting = findViewById(R.id.bt_new_meeting);

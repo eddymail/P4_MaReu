@@ -2,6 +2,7 @@ package com.lousssouarn.edouard.mareu.controler;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -82,9 +83,10 @@ public class ListMeetingActivity extends AppCompatActivity {
             FilterDialogFragment dialogFragment = new FilterDialogFragment();
             dialogFragment.show(getSupportFragmentManager(),"Dialog");
             return true;
-        }else{
-                return super.onOptionsItemSelected(item);
+        }else {
+            return super.onOptionsItemSelected(item);
         }
+
     }
 
     //Init the list of meeting
