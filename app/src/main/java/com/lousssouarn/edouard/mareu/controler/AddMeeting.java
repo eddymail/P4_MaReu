@@ -50,7 +50,6 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         mRoomInput = findViewById(R.id.spinner_room);
 
         // hiding keyboard when EditText is click
-
         mDateInput.setInputType(InputType.TYPE_NULL);
         mTimeInput.setInputType(InputType.TYPE_NULL);
 

@@ -1,5 +1,6 @@
 package com.lousssouarn.edouard.mareu.views;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         //item setText and color
         void display(Meeting meeting){
-                mRoomColor.setBackgroundColor(meeting.getColor());
+                mRoomColor.setImageTintList(ColorStateList.valueOf(meeting.getColor()));
                 mInfo.setText(meeting.getSubject() + " - " + meeting.getTime() + " - " + meeting.getRoomName());
                 mParticipants.setText(meeting.getParticipants());
         }
