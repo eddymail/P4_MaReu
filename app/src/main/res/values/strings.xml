@@ -12,4 +12,17 @@
         <item>Istanbul</item>
         <item>Séoul</item>
     </string-array>
+    <string-array name="filterRooms">
+        <item>Aucune</item>
+        <item>Bangkok</item>
+        <item>Londres</item>
+        <item>Paris</item>
+        <item>Dubaï</item>
+        <item>Singapour</item>
+        <item>New York</item>
+        <item>Kuala Lampur</item>
+        <item>Tokyo</item>
+        <item>Istanbul</item>
+        <item>Séoul</item>
+    </string-array>
 </resources>
