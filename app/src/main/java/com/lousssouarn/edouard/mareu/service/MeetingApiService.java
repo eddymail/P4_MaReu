@@ -15,14 +15,20 @@ public interface MeetingApiService {
     List<Meeting> getMeetings();
 
     /**
-     * Deletes a meeting
-     * @param meeting
-     */
-    void deleteMeeting(Meeting meeting);
-
-    /**
      * Create a meeting
      * @param meeting
      */
     void addMeeting(Meeting meeting);
+
+    /**
+     * Get meetings by room
+     * @return List
+     */
+    List<Meeting> getMeetingsByRoomName();
+
+    /**
+     * Get meetings by date
+     * @return  List
+     */
+    List<Meeting> getMeetingsByDate();
 }

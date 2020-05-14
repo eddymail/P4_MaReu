@@ -1,6 +1,8 @@
 package com.lousssouarn.edouard.mareu.service;
+import com.lousssouarn.edouard.mareu.dialog.FilterDialogFragment;
 import com.lousssouarn.edouard.mareu.model.Meeting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
@@ -17,18 +19,32 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     /**
      * {@inheritDoc}
-     */
-    @Override
-    public void deleteMeeting(Meeting meeting) {
-        meetings.remove(meeting);
-    }
-
-    /**
-     * {@inheritDoc}
      * @param meeting
      */
     @Override
     public void addMeeting(Meeting meeting) {
         meetings.add(meeting);
     }
+
+    @Override
+    public List<Meeting> getMeetingsByRoomName() {
+        FilterDialogFragment fragment = new FilterDialogFragment();
+        String roomName = fragment.getRoomName();
+        List<Meeting> result = new ArrayList<>();
+        for(Meeting meeting : meetings) {
+            if(meeting.getRoomName() == roomName ){
+                result.add(meeting);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<Meeting> getMeetingsByDate() {
+        FilterDialogFragment fragment = new FilterDialogFragment();
+
+        return null;
+    }
+
+
 }

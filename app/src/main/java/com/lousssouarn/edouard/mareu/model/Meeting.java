@@ -2,7 +2,7 @@ package com.lousssouarn.edouard.mareu.model;
 
 
 /**
- * Model object representing a Neighbour
+ * Model object representing a Meeting
  */
 public class Meeting {
     /**

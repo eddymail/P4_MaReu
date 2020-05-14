@@ -1,0 +1,54 @@
+diff --git a/app/src/main/java/com/lousssouarn/edouard/mareu/dialog/FilterDialogFragment.java b/app/src/main/java/com/lousssouarn/edouard/mareu/dialog/FilterDialogFragment.java
+index ceef7eb..9ccfde9 100644
+--- a/app/src/main/java/com/lousssouarn/edouard/mareu/dialog/FilterDialogFragment.java
++++ b/app/src/main/java/com/lousssouarn/edouard/mareu/dialog/FilterDialogFragment.java
+@@ -61,7 +61,6 @@ public class FilterDialogFragment extends DialogFragment {
+             @Override
+             public void onClick(View v) {
+                 showDateTimeDialog(mStartDate);
+-                mStartDate.isSelected();
+             }
+         });
+         mEndDate.setOnClickListener(new View.OnClickListener() {
+@@ -74,7 +73,7 @@ public class FilterDialogFragment extends DialogFragment {
+         return view;
+     }
+ 
+-    private void showDateTimeDialog(EditText start) {
++    private void showDateTimeDialog(final EditText editTextToUpdate) {
+         final Calendar calendar = Calendar.getInstance();
+ 
+         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+@@ -93,11 +92,7 @@ public class FilterDialogFragment extends DialogFragment {
+ 
+                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy à HH:mm");
+ 
+-                        if (mStartDate.isSelected() ) {
+-                            mStartDate.setText(simpleDateFormat.format(calendar.getTime()));
+-                        }else {
+-                            mEndDate.setText(simpleDateFormat.format(calendar.getTime()));
+-                        }
++                        editTextToUpdate.setText(simpleDateFormat.format(calendar.getTime()));
+                     }
+                 };
+                 new TimePickerDialog(getView().getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+diff --git a/app/src/main/res/layout/fragment_filter_dialog.xml b/app/src/main/res/layout/fragment_filter_dialog.xml
+index f0391f6..cf7ea07 100644
+--- a/app/src/main/res/layout/fragment_filter_dialog.xml
++++ b/app/src/main/res/layout/fragment_filter_dialog.xml
+@@ -66,6 +66,7 @@
+         android:layout_marginBottom="8dp"
+         android:hint="Choisir date et heure de départ"
+         android:inputType="none"
++        android:focusable="false"
+         android:textSize="14sp"
+         app:layout_constraintBottom_toTopOf="@+id/et_end"
+         app:layout_constraintEnd_toEndOf="parent"
+@@ -82,6 +83,7 @@
+         android:layout_marginBottom="48dp"
+         android:hint="Choisir date et heure de fin"
+         android:inputType="none"
++        android:focusable="false"
+         android:textSize="14sp"
+         app:layout_constraintBottom_toTopOf="@+id/bt_filter"
+         app:layout_constraintEnd_toEndOf="parent"

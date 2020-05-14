@@ -12,7 +12,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lousssouarn.edouard.mareu.R;
+import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.model.Meeting;
+import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 
 
 import java.util.List;
@@ -21,13 +23,17 @@ import java.util.List;
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
 
     //For Data
-    private final List<Meeting> mMeetings;
+    private List<Meeting> mMeetings;
     //Constructor
-    public MeetingRecyclerViewAdapter(List<Meeting> items) {
-        mMeetings = items;
+    public MeetingRecyclerViewAdapter(List<Meeting> meetings) {
+        mMeetings = meetings;
     }
 
+    public void upDateMeetings(List<Meeting> meetings){
+        mMeetings = meetings;
+        notifyDataSetChanged();
 
+    }
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,7 +53,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 notifyItemRangeChanged(position, mMeetings.size());
             }
         });
-
     }
 
     @Override

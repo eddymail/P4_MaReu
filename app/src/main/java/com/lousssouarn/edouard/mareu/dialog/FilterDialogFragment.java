@@ -10,31 +10,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.lousssouarn.edouard.mareu.R;
+import com.lousssouarn.edouard.mareu.di.DI;
+import com.lousssouarn.edouard.mareu.model.Meeting;
+import com.lousssouarn.edouard.mareu.service.MeetingApiService;
+import com.lousssouarn.edouard.mareu.views.MeetingRecyclerViewAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class FilterDialogFragment extends DialogFragment {
-    private String room;
+    private MeetingApiService mApiService;
+    private MeetingRecyclerViewAdapter mAdapter;
+    private List<Meeting> mMeetings;
+    private String mRoomName;
     Spinner mRoomInput;
     EditText mStartDate;
     EditText mEndDate;
+    Button mRoomFilter;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter_dialog, container, false);
+
+        mApiService = DI.getMeetingApiService();
 
         //Spinner meeting room list
         mRoomInput = view.findViewById(R.id.sp_room);
@@ -43,20 +57,32 @@ public class FilterDialogFragment extends DialogFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRoomInput.setAdapter(adapter);
 
+        //Recovery the selected room
         mRoomInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                room = parent.getItemAtPosition(position).toString();
-
+                mRoomName = parent.getItemAtPosition(position).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
+        mRoomFilter = view.findViewById(R.id.bt_room_filter);
+        mRoomFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMeetings = mApiService.getMeetingsByRoomName();
+                MeetingRecyclerViewAdapter mAdapter = new MeetingRecyclerViewAdapter(mMeetings);
+                mAdapter.upDateMeetings(mMeetings);
+                dismiss();
+            }
+        });
+
         //DateTimePikerDialog
         mEndDate = view.findViewById(R.id.et_end);
         mStartDate = view.findViewById(R.id.et_start);
+
         mStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +100,11 @@ public class FilterDialogFragment extends DialogFragment {
         return view;
     }
 
-    private void showDateTimeDialog(EditText start) {
+    public String getRoomName(){
+        return mRoomName;
+    }
+
+    private void showDateTimeDialog(final EditText editTextToUpdate) {
         final Calendar calendar = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -105,5 +135,10 @@ public class FilterDialogFragment extends DialogFragment {
         };
         new DatePickerDialog(getView().getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

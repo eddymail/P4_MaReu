@@ -36,19 +36,16 @@ public class ListMeetingActivity extends AppCompatActivity {
    private RecyclerView mRecyclerView;
    private MeetingRecyclerViewAdapter mAdapter;
 
-   public ImageButton mAddMeetingButton;
+   private ImageButton mAddMeetingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_meeting);
-
         this.configureToolbar();
 
         mApiService = DI.getMeetingApiService();
-
         mRecyclerView = findViewById(R.id.meeting_list);
-
         mAdapter = new MeetingRecyclerViewAdapter(mMeetings);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
@@ -99,5 +96,6 @@ public class ListMeetingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initList();
+
     }
 }
