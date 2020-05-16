@@ -29,6 +29,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     private String inputMeetingRoom;
     private int newMeetingColor;
     private String room;
+    private String date;
 
     Spinner mRoomInput;
     EditText mNameInput;
@@ -93,14 +94,13 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
                 calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
                 calendar.set(Calendar.MINUTE,minute);
                 //Formatting the Time
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH'h'mm");
                 //Setting Time into EditText
                 mTimeInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
         //creating TimePiker Dialog
         new  TimePickerDialog(AddMeeting.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-
     }
 
     private void showDateDialog(EditText editTextDateInput) {
@@ -114,7 +114,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 //Formatting the Date
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd - MM - yyyy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 //Setting Date into EditText
                 mDateInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
@@ -165,12 +165,17 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     //Add the created meeting
     public void addMeeting() {
         mNameInput = findViewById(R.id.et_name);
+        mDateInput = findViewById(R.id.et_date);
         mTimeInput = findViewById(R.id.et_time);
         mParticipantsInput = findViewById(R.id.et_participants);
+
+        date =  mDateInput.getText().toString();
         int color = getRoomColor(mRoomInput);
+
         Meeting meeting = new Meeting(
                 color,
                 mNameInput.getText().toString(),
+                date,
                 mTimeInput.getText().toString(),
                 room,
                 mParticipantsInput.getText().toString()

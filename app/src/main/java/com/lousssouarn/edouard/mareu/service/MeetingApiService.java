@@ -24,11 +24,11 @@ public interface MeetingApiService {
      * Get meetings by room
      * @return List
      */
-    List<Meeting> getMeetingsByRoomName();
+    List<Meeting> getMeetingsByRoomName(String roomName);
 
     /**
      * Get meetings by date
      * @return  List
      */
-    List<Meeting> getMeetingsByDate(String dateTimeSelected);
+    List<Meeting> getMeetingsByDate(String date);
 }

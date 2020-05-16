@@ -2,7 +2,6 @@ package com.lousssouarn.edouard.mareu.dialog;
 
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -13,14 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.di.DI;
@@ -34,14 +30,20 @@ import java.util.List;
 
 public class FilterDialogFragment extends DialogFragment {
     private MeetingApiService mApiService;
-    private MeetingRecyclerViewAdapter mAdapter;
+    private MeetingRecyclerViewAdapter mAdapter = null;
     private List<Meeting> mMeetings;
     private String mRoomName;
-    Spinner mRoomInput;
-    EditText mStartDate;
-    EditText mEndDate;
-    Button mRoomFilter;
+    private String mDate;
 
+    Spinner mRoomInput;
+    EditText mDateInput;
+    EditText mEndDateInput;
+    Button mRoomFilter;
+    Button mDateFilter;
+
+    public void setParentAdapter(MeetingRecyclerViewAdapter adapter){
+        this.mAdapter = adapter;
+    }
 
     @Nullable
     @Override
@@ -67,43 +69,43 @@ public class FilterDialogFragment extends DialogFragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
+        //Filter by room when button is click
         mRoomFilter = view.findViewById(R.id.bt_room_filter);
         mRoomFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMeetings = mApiService.getMeetingsByRoomName();
-                MeetingRecyclerViewAdapter mAdapter = new MeetingRecyclerViewAdapter(mMeetings);
-                mAdapter.upDateMeetings(mMeetings);
+                mMeetings = mApiService.getMeetingsByRoomName(mRoomName);
+                if(mAdapter != null) {
+                    mAdapter.upDateMeetings(mMeetings);
+                }
                 dismiss();
             }
         });
 
         //DateTimePikerDialog
-        mEndDate = view.findViewById(R.id.et_end);
-        mStartDate = view.findViewById(R.id.et_start);
-
-        mStartDate.setOnClickListener(new View.OnClickListener() {
+        mDateInput = view.findViewById(R.id.et_start);
+        mDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimeDialog(mStartDate);
-                mStartDate.isSelected();
+                showDateTimeDialog(mDateInput);
             }
         });
-        mEndDate.setOnClickListener(new View.OnClickListener() {
+
+        //Filter by date when button is click
+        mDateFilter = view.findViewById(R.id.bt_date_filter);
+        mDateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimeDialog(mEndDate);
+                mMeetings = mApiService.getMeetingsByDate(mDate);
+                if(mAdapter != null) {
+                    mAdapter.upDateMeetings(mMeetings);
+                }
+                dismiss();
             }
         });
 
         return view;
     }
-
-    public String getRoomName(){
-        return mRoomName;
-    }
-   // public String getStartDate() {return mStartDateInput;}
 
     private void showDateTimeDialog(final EditText editTextToUpdate) {
         final Calendar calendar = Calendar.getInstance();
@@ -116,27 +118,25 @@ public class FilterDialogFragment extends DialogFragment {
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                        calendar.set(Calendar.MINUTE,minute);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy à HH : mm");
+                editTextToUpdate.setText(simpleDateFormat.format(calendar.getTime()));
+                //Recovery the selected date
+                mDate = mDateInput.getText().toString();
 
-                        if (mStartDate.isSelected() ) {
-                            mStartDate.setText(simpleDateFormat.format(calendar.getTime()));
-                        }else {
-                            mEndDate.setText(simpleDateFormat.format(calendar.getTime()));
-                        }
-                    }
-                };
-                new TimePickerDialog(getView().getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
             }
         };
         new DatePickerDialog(getView().getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
     }
+
+
+
+    public String getRoomName(){
+        return mRoomName;
+    }
+    public String getDate() {return mDate;}
+
+
 
     @Override
     public void onResume() {

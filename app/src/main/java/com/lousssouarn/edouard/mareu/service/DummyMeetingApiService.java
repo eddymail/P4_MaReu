@@ -9,6 +9,8 @@ import java.util.List;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
+    private long mStartDate;
+    private String mEndDate;
 
     /**
      * {@inheritDoc}
@@ -28,12 +30,13 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> getMeetingsByRoomName() {
-        FilterDialogFragment fragment = new FilterDialogFragment();
-        String roomName = fragment.getRoomName();
+    public List<Meeting> getMeetingsByRoomName(String roomName) {
         List<Meeting> result = new ArrayList<>();
+        if(roomName.equals("Toutes les salles")){
+            return meetings;
+        }
         for(Meeting meeting : meetings) {
-            if(meeting.getRoomName() == roomName ){
+            if(meeting.getRoomName().equals(roomName)){
                 result.add(meeting);
             }
         }
@@ -41,11 +44,13 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> getMeetingsByDate(String dateTimeSelected) {
-        FilterDialogFragment fragment = new FilterDialogFragment();
-
-        return null;
+    public List<Meeting> getMeetingsByDate(String date) {
+        List<Meeting> result = new ArrayList<>();
+        for(Meeting meeting : meetings) {
+            if(meeting.getDate().equals(date)){
+                result.add(meeting);
+            }
+        }
+        return result;
     }
-
-
 }

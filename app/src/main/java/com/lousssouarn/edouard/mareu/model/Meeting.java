@@ -18,7 +18,7 @@ public class Meeting {
     /**
      * date
      */
-    private long date;
+    private String date;
     /**
      * time
      */
@@ -34,7 +34,7 @@ public class Meeting {
      */
     private String participants;
 
-    public Meeting(int color, String subject, long date, String time, String roomName, String participants) {
+    public Meeting(int color, String subject, String date, String time, String roomName, String participants) {
         this.color = color;
         this.subject = subject;
         this.date = date;
@@ -59,11 +59,11 @@ public class Meeting {
         this.subject = subject;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
