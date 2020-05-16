@@ -34,12 +34,12 @@ public class Meeting {
      */
     private String participants;
 
-    public Meeting(int color, String subject, String time, String meetingRoom, String participants) {
+    public Meeting(int color, String subject, long date, String time, String roomName, String participants) {
         this.color = color;
         this.subject = subject;
         this.date = date;
         this.time = time;
-        this.roomName = meetingRoom;
+        this.roomName = roomName;
         this.participants = participants;
     }
 
