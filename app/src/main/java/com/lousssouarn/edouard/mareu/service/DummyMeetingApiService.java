@@ -35,15 +35,13 @@ public class DummyMeetingApiService implements MeetingApiService {
         for(Meeting meeting : meetings) {
             if(meeting.getRoomName() == roomName ){
                 result.add(meeting);
-            }if(meeting.getRoomName().equals("Toutes les salles")){
-                result.addAll(meetings);
             }
         }
         return result;
     }
 
     @Override
-    public List<Meeting> getMeetingsByDate() {
+    public List<Meeting> getMeetingsByDate(String dateTimeSelected) {
         FilterDialogFragment fragment = new FilterDialogFragment();
 
         return null;

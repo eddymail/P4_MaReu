@@ -103,6 +103,7 @@ public class FilterDialogFragment extends DialogFragment {
     public String getRoomName(){
         return mRoomName;
     }
+   // public String getStartDate() {return mStartDateInput;}
 
     private void showDateTimeDialog(final EditText editTextToUpdate) {
         final Calendar calendar = Calendar.getInstance();
@@ -121,7 +122,7 @@ public class FilterDialogFragment extends DialogFragment {
                         calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
                         calendar.set(Calendar.MINUTE,minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy à HH:mm");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy à HH : mm");
 
                         if (mStartDate.isSelected() ) {
                             mStartDate.setText(simpleDateFormat.format(calendar.getTime()));

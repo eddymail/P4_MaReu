@@ -30,5 +30,5 @@ public interface MeetingApiService {
      * Get meetings by date
      * @return  List
      */
-    List<Meeting> getMeetingsByDate();
+    List<Meeting> getMeetingsByDate(String dateTimeSelected);
 }

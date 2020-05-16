@@ -93,7 +93,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
                 calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
                 calendar.set(Calendar.MINUTE,minute);
                 //Formatting the Time
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH : mm");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
                 //Setting Time into EditText
                 mTimeInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
