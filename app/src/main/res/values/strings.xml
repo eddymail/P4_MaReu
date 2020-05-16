@@ -13,7 +13,7 @@
         <item>Séoul</item>
     </string-array>
     <string-array name="filterRooms">
-        <item>Choisir une salle</item>
+        <item>Toutes les salles</item>
         <item>Bangkok</item>
         <item>Londres</item>
         <item>Paris</item>

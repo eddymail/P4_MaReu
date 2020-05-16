@@ -1,4 +1,5 @@
 package com.lousssouarn.edouard.mareu.service;
+import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.dialog.FilterDialogFragment;
 import com.lousssouarn.edouard.mareu.model.Meeting;
 
@@ -34,6 +35,8 @@ public class DummyMeetingApiService implements MeetingApiService {
         for(Meeting meeting : meetings) {
             if(meeting.getRoomName() == roomName ){
                 result.add(meeting);
+            }if(meeting.getRoomName().equals("Toutes les salles")){
+                result.addAll(meetings);
             }
         }
         return result;
