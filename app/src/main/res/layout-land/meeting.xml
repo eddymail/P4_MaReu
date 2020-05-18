@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/item_room_color"
@@ -44,8 +44,8 @@
             android:id="@+id/item_participants"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="@dimen/size_text_list"
             android:inputType="textPersonName"
+            android:textSize="@dimen/size_text_list"
             android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

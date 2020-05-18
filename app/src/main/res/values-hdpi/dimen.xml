@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TextViews -->
+    <dimen name="size_text_list">11sp</dimen>
+    <dimen name="size_text_choice">9sp</dimen>
+    <dimen name="size_text_button">8sp</dimen>
+
+</resources>
