@@ -1,6 +1,4 @@
 package com.lousssouarn.edouard.mareu.service;
-import com.lousssouarn.edouard.mareu.di.DI;
-import com.lousssouarn.edouard.mareu.dialog.FilterDialogFragment;
 import com.lousssouarn.edouard.mareu.model.Meeting;
 
 import java.util.ArrayList;
@@ -27,6 +25,12 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void addMeeting(Meeting meeting) {
         meetings.add(meeting);
+    }
+
+    @Override
+    public void deleteMeeting(int position) {
+        meetings.remove(position);
+
     }
 
     @Override

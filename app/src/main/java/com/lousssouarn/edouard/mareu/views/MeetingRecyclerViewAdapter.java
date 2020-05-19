@@ -21,7 +21,7 @@ import java.util.List;
 
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
-
+    MeetingApiService mApiService;
     //For Data
     private List<Meeting> mMeetings;
     //Constructor
@@ -49,7 +49,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             @Override
             public void onClick(View v) {
                 notifyItemRemoved(position);
-                mMeetings.remove(position);
+                mApiService = DI.getMeetingApiService();
+                mApiService.deleteMeeting(position);
                 notifyItemRangeChanged(position, mMeetings.size());
             }
         });

@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private MeetingApiService mApiService;
-    private String inputMeetingRoom;
+    //private String inputMeetingRoom;
     private int newMeetingColor;
     private String room;
     private String date;
@@ -64,7 +64,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMeeting();
+                createMeeting();
             }
         });
 
@@ -163,7 +163,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     //Add the created meeting
-    public void addMeeting() {
+    public void createMeeting() {
         mNameInput = findViewById(R.id.et_name);
         mDateInput = findViewById(R.id.et_date);
         mTimeInput = findViewById(R.id.et_time);

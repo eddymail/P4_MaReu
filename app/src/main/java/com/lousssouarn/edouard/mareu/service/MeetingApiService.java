@@ -21,6 +21,12 @@ public interface MeetingApiService {
     void addMeeting(Meeting meeting);
 
     /**
+     *Delete a meeting
+     * @param position
+     */
+    void deleteMeeting(int position);
+
+    /**
      * Get meetings by room
      * @return List
      */
