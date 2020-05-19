@@ -26,7 +26,6 @@ import java.util.Calendar;
 public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private MeetingApiService mApiService;
-    //private String inputMeetingRoom;
     private int newMeetingColor;
     private String room;
     private String date;

@@ -7,8 +7,6 @@ import java.util.List;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
-    private long mStartDate;
-    private String mEndDate;
 
     /**
      * {@inheritDoc}
