@@ -38,7 +38,10 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
-
+        List<Meeting> meetings = mService.getMeetings();
+        int count = meetings.size();
+        mService.deleteMeeting(0);
+        assertEquals(count-1,mService.getMeetings().size());
     }
 
     @Test
@@ -54,6 +57,7 @@ public class MeetingServiceTest {
         mService.addMeeting(meetingTakesPlaceInBangkok);
         assertFalse(mService.getMeetingsByRoomName("Paris").contains(meetingTakesPlaceInBangkok));
     }
+
     @Test
     public void filterMeetingByDate() {
         Meeting meetingTakesPlaceOnMayEleven = new Meeting(0xFFAB47BC,"Réunion Projet X","11-05-2020","10h00","Paris","leila@lamzone.com,mathieu@lamzone.com");

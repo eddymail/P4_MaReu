@@ -44,7 +44,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
 
         mApiService = DI.getMeetingApiService();
 
-        mDateInput = findViewById(R.id.et_date);
+        mDateInput = findViewById(R.id.et_filter_date);
         mTimeInput = findViewById(R.id.et_time);
         mRoomInput = findViewById(R.id.sp_room);
 
@@ -164,7 +164,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     //Add the created meeting
     public void createMeeting() {
         mNameInput = findViewById(R.id.et_name);
-        mDateInput = findViewById(R.id.et_date);
+        mDateInput = findViewById(R.id.et_filter_date);
         mTimeInput = findViewById(R.id.et_time);
         mParticipantsInput = findViewById(R.id.et_participants);
 

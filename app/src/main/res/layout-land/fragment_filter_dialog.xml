@@ -56,13 +56,13 @@
         android:layout_marginTop="8dp"
         android:text="Choisir une date"
         android:textSize="@dimen/size_text_choice"
-        app:layout_constraintBottom_toTopOf="@+id/et_start"
+        app:layout_constraintBottom_toTopOf="@+id/et_filter_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_room_filter" />
 
     <EditText
-        android:id="@+id/et_start"
+        android:id="@+id/et_filter_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

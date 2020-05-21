@@ -83,7 +83,7 @@ public class FilterDialogFragment extends DialogFragment {
         });
 
         //DateTimePikerDialog
-        mDateInput = view.findViewById(R.id.et_start);
+        mDateInput = view.findViewById(R.id.et_filter_date);
         mDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
