@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- TextViews -->
-    <dimen name="size_text">12sp</dimen>
-    <dimen name="size_text_button">7sp</dimen>
+    <dimen name="size_text_list">13sp</dimen>
+    <dimen name="size_edit_text">15sp</dimen>
+    <dimen name="size_text_spinner">11sp</dimen>
+    <dimen name="size_text_button">10sp</dimen>
 
 </resources>

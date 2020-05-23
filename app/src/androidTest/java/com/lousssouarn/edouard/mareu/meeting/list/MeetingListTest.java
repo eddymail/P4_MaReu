@@ -97,7 +97,7 @@ public class MeetingListTest {
         onView(withId(R.id.menu_filter)).perform(click());
         onView(withId(R.id.et_filter_date)).perform(replaceText("11-05-2020"));
         onView(withId(R.id.bt_date_filter)).perform(click());
-        onView(withId(R.id.meeting_list)).check(matches(hasChildCount(2)));
+        onView(withId(R.id.meeting_list)).check(matches(hasChildCount(3)));
     }
 
 }

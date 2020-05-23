@@ -46,7 +46,6 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         mApiService = DI.getMeetingApiService();
         mRecyclerView = findViewById(R.id.meeting_list);
-        mAdapter = new MeetingRecyclerViewAdapter(mMeetings);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false));
 
@@ -78,6 +77,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         //Handle actions on menu items
         if (item.getItemId() == menu_filter) {
             FilterDialogFragment dialogFragment = new FilterDialogFragment();
+            dialogFragment.setParentAdapter(mAdapter);
             dialogFragment.show(getSupportFragmentManager(),"Dialog");
             return true;
         }else {
@@ -89,7 +89,8 @@ public class ListMeetingActivity extends AppCompatActivity {
     //Init the list of meeting
     private void initList(){
         mMeetings = mApiService.getMeetings();
-        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings));
+        mAdapter = new MeetingRecyclerViewAdapter(mMeetings);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

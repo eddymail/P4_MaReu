@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Ma réu</string>
     <string-array name="nameRooms">
-        <item>choisir une salle</item>
+        <item>Choisir une salle</item>
         <item>Bangkok</item>
         <item>Londres</item>
         <item>Paris</item>

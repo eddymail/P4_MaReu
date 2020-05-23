@@ -2,7 +2,8 @@
 <resources>
     <!-- TextViews -->
     <dimen name="size_text_list">25sp</dimen>
-    <dimen name="size_text_choice">20sp</dimen>
-    <dimen name="size_text_button">12sp</dimen>
+    <dimen name="size_edit_text">20sp</dimen>
+    <dimen name="size_text_spinner">18sp</dimen>
+    <dimen name="size_text_button">15sp</dimen>
 
 </resources>
