@@ -96,7 +96,7 @@ public class FilterDialogFragment extends DialogFragment {
         mDateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMeetings = mApiService.getMeetingsByDate(mDate);
+                mMeetings = mApiService.getMeetingsByDate(mDateInput.getText().toString());
                 if(mAdapter != null) {
                     mAdapter.upDateMeetings(mMeetings);
                 }

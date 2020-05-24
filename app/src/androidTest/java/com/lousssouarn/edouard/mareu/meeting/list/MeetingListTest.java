@@ -7,6 +7,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.controler.ListMeetingActivity;
+import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.utils.DeleteViewAction;
 
 import org.junit.Before;
@@ -74,14 +75,13 @@ public class MeetingListTest {
 
     @Test
     public void addNewMeeting() {
-        //Given : we ensure there are 10 elements in the recyclerview
-        onView(withId(R.id.meeting_list)).check(withItemCount(ITEMS_COUNT));
+        int itemCount = DI.getMeetingApiService().getMeetings().size();
         //When : we click on "add item" floatingActionButton, create a new meeting call "Test meeting", and click on "new meeting button"
         onView(withId(R.id.add_item)).perform(click());
         onView(withId(R.id.et_name)).perform(replaceText("Test meeting"));
         onView(withId(R.id.bt_new_meeting)).perform(click());
         //Then : we ensure there is one more element in the recyclerview
-        onView(withId(R.id.meeting_list)).check(withItemCount(ITEMS_COUNT+1));
+        onView(withId(R.id.meeting_list)).check(withItemCount(itemCount+1));
     }
 
     @Test
