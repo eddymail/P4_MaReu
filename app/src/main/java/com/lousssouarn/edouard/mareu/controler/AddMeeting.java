@@ -30,7 +30,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     private String room;
     private String date;
 
-    Spinner mRoomInput;
+    Spinner mSpinner;
     EditText mNameInput;
     EditText mDateInput;
     EditText mTimeInput;
@@ -44,9 +44,9 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
 
         mApiService = DI.getMeetingApiService();
 
-        mDateInput = findViewById(R.id.et_filter_date);
-        mTimeInput = findViewById(R.id.et_time);
-        mRoomInput = findViewById(R.id.sp_room);
+        mDateInput = findViewById(R.id.et_date_input);
+        mTimeInput = findViewById(R.id.et_time_input);
+        mSpinner = findViewById(R.id.sp_room);
 
         // hiding keyboard when EditText is click
         mDateInput.setInputType(InputType.TYPE_NULL);
@@ -55,8 +55,8 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         //Spinner meeting room list
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.nameRooms, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mRoomInput.setAdapter(adapter);
-        mRoomInput.setOnItemSelectedListener(this);
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(this);
 
         //add new meeting when button is clicked
         mButtonNewMeeting = findViewById(R.id.bt_new_meeting);
@@ -124,7 +124,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     //Get the color of the room according to the chosen room
-    public int getRoomColor(Spinner roomInput) {
+    public int getRoomColor(Spinner mSpinner) {
         switch (room) {
             case "Bangkok":
                 newMeetingColor = 0xFFEF5350;
@@ -164,12 +164,12 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     //Add the created meeting
     public void createMeeting() {
         mNameInput = findViewById(R.id.et_name);
-        mDateInput = findViewById(R.id.et_filter_date);
-        mTimeInput = findViewById(R.id.et_time);
+        mDateInput = findViewById(R.id.et_date_input);
+        mTimeInput = findViewById(R.id.et_time_input);
         mParticipantsInput = findViewById(R.id.et_participants);
 
         date =  mDateInput.getText().toString();
-        int color = getRoomColor(mRoomInput);
+        int color = getRoomColor(mSpinner);
 
         Meeting meeting = new Meeting(
                 color,
