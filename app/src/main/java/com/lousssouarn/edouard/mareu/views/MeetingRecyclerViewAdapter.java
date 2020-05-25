@@ -48,9 +48,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyItemRemoved(position);
                 mApiService = DI.getMeetingApiService();
                 mApiService.deleteMeeting(position);
+                notifyItemRemoved(position);
                 notifyItemRangeChanged(position, getItemCount());
             }
         });
