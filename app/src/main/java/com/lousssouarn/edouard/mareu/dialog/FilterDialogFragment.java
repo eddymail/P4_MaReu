@@ -1,6 +1,5 @@
 package com.lousssouarn.edouard.mareu.dialog;
 
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,7 +36,6 @@ public class FilterDialogFragment extends DialogFragment {
 
     Spinner mRoomInput;
     EditText mDateInput;
-    EditText mEndDateInput;
     Button mRoomFilter;
     Button mDateFilter;
 
@@ -52,9 +50,12 @@ public class FilterDialogFragment extends DialogFragment {
 
         mApiService = DI.getMeetingApiService();
 
-        //Spinner meeting room list
         mRoomInput = view.findViewById(R.id.sp_room);
+        mRoomFilter = view.findViewById(R.id.bt_room_filter);
+        mDateInput = view.findViewById(R.id.et_date_input);
+        mDateFilter = view.findViewById(R.id.bt_date_filter);
 
+        //Spinner meeting room list
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.filterRooms, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRoomInput.setAdapter(adapter);
@@ -69,8 +70,8 @@ public class FilterDialogFragment extends DialogFragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
         //Filter by room when button is click
-        mRoomFilter = view.findViewById(R.id.bt_room_filter);
         mRoomFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +84,6 @@ public class FilterDialogFragment extends DialogFragment {
         });
 
         //DateTimePikerDialog
-        mDateInput = view.findViewById(R.id.et_date_input);
         mDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +92,6 @@ public class FilterDialogFragment extends DialogFragment {
         });
 
         //Filter by date when button is click
-        mDateFilter = view.findViewById(R.id.bt_date_filter);
         mDateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,22 +120,11 @@ public class FilterDialogFragment extends DialogFragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
                 editTextToUpdate.setText(simpleDateFormat.format(calendar.getTime()));
-                //Recovery the selected date
-                mDate = mDateInput.getText().toString();
 
             }
         };
         new DatePickerDialog(getView().getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
-
-
-    public String getRoomName(){
-        return mRoomName;
-    }
-    public String getDate() {return mDate;}
-
-
 
     @Override
     public void onResume() {
