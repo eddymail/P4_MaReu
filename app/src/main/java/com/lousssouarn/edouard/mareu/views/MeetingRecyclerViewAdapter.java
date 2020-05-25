@@ -60,7 +60,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public int getItemCount() {
         return mMeetings.size();
     }
-    
+
     //ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder{
             public AppCompatImageView mRoomColor;
