@@ -51,13 +51,13 @@
         android:layout_marginTop="8dp"
         android:text="Chercher par date"
         android:textSize="@dimen/size_edit_text"
-        app:layout_constraintBottom_toTopOf="@+id/et_filter_date"
+        app:layout_constraintBottom_toTopOf="@+id/et_date_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_room_filter" />
 
     <EditText
-        android:id="@+id/et_filter_date"
+        android:id="@+id/et_date_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"

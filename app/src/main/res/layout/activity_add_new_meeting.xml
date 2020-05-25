@@ -46,13 +46,13 @@
         android:hint="Nom de la réunion "
         android:inputType="textPersonName"
         android:textSize="@dimen/size_edit_text"
-        app:layout_constraintBottom_toTopOf="@+id/et_filter_date"
+        app:layout_constraintBottom_toTopOf="@+id/et_date_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sp_room" />
 
     <EditText
-        android:id="@+id/et_filter_date"
+        android:id="@+id/et_date_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -62,13 +62,14 @@
         android:hint="Choisir date"
         android:inputType="none"
         android:textSize="@dimen/size_edit_text"
-        app:layout_constraintBottom_toTopOf="@+id/et_time"
+        app:layout_constraintBottom_toTopOf="@+id/et_time_input"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
     <EditText
-        android:id="@+id/et_time"
+        android:id="@+id/et_time_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,7 +82,7 @@
         app:layout_constraintBottom_toTopOf="@+id/et_participants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_filter_date" />
+        app:layout_constraintTop_toBottomOf="@+id/et_date_input" />
 
     <EditText
         android:id="@+id/et_participants"
@@ -96,7 +97,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bt_new_meeting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_filter_date"/>
+        app:layout_constraintTop_toBottomOf="@+id/et_date_input"/>
 
     <Button
         android:id="@+id/bt_new_meeting"
