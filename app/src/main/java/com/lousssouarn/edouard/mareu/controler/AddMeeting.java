@@ -52,6 +52,9 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         mDateInput = findViewById(R.id.et_date_input);
         mTimeInput = findViewById(R.id.et_time_input);
         mSpinner = findViewById(R.id.sp_room);
+        mNameInput = findViewById(R.id.et_name);
+        mParticipantsInput = findViewById(R.id.et_participants);
+        mButtonNewMeeting = findViewById(R.id.bt_new_meeting);
 
         // hiding keyboard when EditText is click
         mDateInput.setInputType(InputType.TYPE_NULL);
@@ -78,7 +81,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         });
 
         //add new meeting when button is clicked
-        mButtonNewMeeting = findViewById(R.id.bt_new_meeting);
+
         mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +101,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
-        private void showDateDialog(EditText editTextDateInput) {
+    private void showDateDialog(EditText editTextDateInput) {
         final Calendar calendar = Calendar.getInstance();
         //creating a DateSet Listener
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -178,10 +181,6 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
 
     //Add the created meeting
     public void createMeeting() {
-        mNameInput = findViewById(R.id.et_name);
-        mDateInput = findViewById(R.id.et_date_input);
-        mTimeInput = findViewById(R.id.et_time_input);
-        mParticipantsInput = findViewById(R.id.et_participants);
 
         color = getRoomColor(mSpinner);
         name = mNameInput.getText().toString();

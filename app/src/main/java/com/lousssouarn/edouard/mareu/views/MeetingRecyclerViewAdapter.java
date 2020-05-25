@@ -51,7 +51,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 notifyItemRemoved(position);
                 mApiService = DI.getMeetingApiService();
                 mApiService.deleteMeeting(position);
-                notifyItemRangeChanged(position, mMeetings.size());
+                notifyItemRangeChanged(position, getItemCount());
             }
         });
     }
