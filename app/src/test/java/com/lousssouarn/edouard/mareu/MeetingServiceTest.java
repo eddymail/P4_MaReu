@@ -52,14 +52,14 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void filterMeetingByRoom() {
+    public void filterMeetingByRoomWithSuccess() {
         Meeting meetingTakesPlaceInBangkok = new Meeting(0xFFEF5350,"Test meeting", "10-05-2020", "09h00","Bangkok","eddy@lamzon.com");
         mService.addMeeting(meetingTakesPlaceInBangkok);
         assertFalse(mService.getMeetingsByRoomName("Paris").contains(meetingTakesPlaceInBangkok));
     }
 
     @Test
-    public void filterMeetingByDate() {
+    public void filterMeetingByDateWithSuccess() {
         Meeting meetingTakesPlaceOnMayEleven = new Meeting(0xFFAB47BC,"Réunion Projet X","11-05-2020","10h00","Paris","leila@lamzone.com,mathieu@lamzone.com");
         mService.addMeeting(meetingTakesPlaceOnMayEleven);
         assertFalse(mService.getMeetingsByDate("10-05-2020").contains(meetingTakesPlaceOnMayEleven));
