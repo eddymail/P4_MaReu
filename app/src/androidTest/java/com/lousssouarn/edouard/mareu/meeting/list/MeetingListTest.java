@@ -56,8 +56,7 @@ public class MeetingListTest {
      */
     @Test
     public void myMeetingList_shouldNotBeEmpty() {
-        onView(allOf(ViewMatchers.withId(R.id.meeting_list),isDisplayed()))
-                .check(matches(hasMinimumChildCount(1)));
+        onView(withId(R.id.meeting_list)).check(matches(hasMinimumChildCount(1)));
     }
 
     /**
