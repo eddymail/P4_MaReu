@@ -73,7 +73,8 @@ public class MeetingListTest {
     }
 
     @Test
-    public void addNewMeeting() {
+    public void addNewMeetingTest() {
+        //Given : we recover the number of items in the list
         int itemCount = DI.getMeetingApiService().getMeetings().size();
         //When : we click on "add item" floatingActionButton, create a new meeting call "Test meeting", and click on "new meeting button"
         onView(withId(R.id.add_item)).perform(click());
@@ -84,15 +85,16 @@ public class MeetingListTest {
     }
 
     @Test
-    public void filterMeetingByRoomName(){
+    public void filterMeetingByRoomNameTest(){
         onView(withId(R.id.menu_filter)).perform(click());
         final String item = "Bangkok";
         onData(allOf(is(instanceOf(String.class)), is(item))).perform();
         onView(withId(R.id.bt_room_filter)).perform(click());
         onView(withId(R.id.meeting_list)).check(matches(hasChildCount(1)));
     }
+
     @Test
-    public void filterMeetingByDate(){
+    public void filterMeetingByDateTest(){
         onView(withId(R.id.menu_filter)).perform(click());
         onView(withId(R.id.et_date_input)).perform(replaceText("11-05-2020"));
         onView(withId(R.id.bt_date_filter)).perform(click());
