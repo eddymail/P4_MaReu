@@ -2,10 +2,8 @@ package com.lousssouarn.edouard.mareu.controler;
 
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.di.DI;
@@ -76,6 +73,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //Handle actions on menu items
         if (item.getItemId() == menu_filter) {
+            //Display dialog
             FilterDialogFragment dialogFragment = new FilterDialogFragment();
             dialogFragment.setParentAdapter(mAdapter);
             dialogFragment.show(getSupportFragmentManager(),"Dialog");
@@ -97,6 +95,5 @@ public class ListMeetingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initList();
-
     }
 }

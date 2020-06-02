@@ -81,11 +81,11 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         });
 
         //add new meeting when button is clicked
-
         mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createMeeting();
+                finish();
             }
         });
     }
@@ -175,11 +175,10 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
                 newMeetingColor = 0xFFFFEB3B;
                 break;
         }
-
         return newMeetingColor;
     }
 
-    //Add the created meeting
+    //Add the created meeting and it to metings list
     public void createMeeting() {
 
         color = getRoomColor(mSpinner);
@@ -191,7 +190,6 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         Meeting meeting = new Meeting(color,name, date, time, room, participants);
 
         mApiService.addMeeting(meeting);
-        finish();
     }
 
 }

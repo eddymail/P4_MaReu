@@ -32,8 +32,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public void upDateMeetings(List<Meeting> meetings){
         mMeetings = meetings;
         notifyDataSetChanged();
-
     }
+
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
