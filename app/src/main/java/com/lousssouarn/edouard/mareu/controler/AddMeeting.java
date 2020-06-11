@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.di.DI;
@@ -84,8 +86,27 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createMeeting();
-                finish();
+
+                //collect of user input
+                name = mNameInput.getText().toString();
+                date = mDateInput.getText().toString();
+                time = mTimeInput.getText().toString();
+                participants = mParticipantsInput.getText().toString();
+
+                if(room.matches("Choisir une salle"))
+                    Toast.makeText(AddMeeting.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
+                else if (name.matches(""))
+                    Toast.makeText(AddMeeting.this, "Vous devez renseigner un nom de réunion !", Toast.LENGTH_SHORT).show();
+                else if (date.matches(""))
+                    Toast.makeText(AddMeeting.this, "Vous devez renseigner une date de réunion !", Toast.LENGTH_SHORT).show();
+                else if (time.matches(""))
+                    Toast.makeText(AddMeeting.this, "Vous devez renseigner une heure de réunion !", Toast.LENGTH_SHORT).show();
+                else if (participants.matches(""))
+                    Toast.makeText(AddMeeting.this, "Vous devez renseigner un participant !", Toast.LENGTH_SHORT).show();
+                else {
+                    createMeeting();
+                    finish();
+                }
             }
         });
     }
@@ -182,10 +203,6 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
     public void createMeeting() {
 
         color = getRoomColor(mSpinner);
-        name = mNameInput.getText().toString();
-        date = mDateInput.getText().toString();
-        time = mTimeInput.getText().toString();
-        participants = mParticipantsInput.getText().toString();
 
         Meeting meeting = new Meeting(color,name, date, time, room, participants);
 
