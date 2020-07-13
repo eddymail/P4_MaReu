@@ -22,7 +22,11 @@ public class DummyMeetingApiService implements MeetingApiService {
      */
     @Override
     public void addMeeting(Meeting meeting) {
-        meetings.add(meeting);
+       if(!meeting.getSubject().equals("") && !meeting.getDate().equals("") && !meeting.getTime().equals("") && !meeting.getRoomName().equals("Choisir une salle") && !meeting.getParticipants().equals("")) {
+           meetings.add(meeting);
+       }else{
+           throw new IllegalArgumentException();
+       }
     }
 
     @Override

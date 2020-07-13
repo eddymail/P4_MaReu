@@ -7,6 +7,7 @@ import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +50,17 @@ public class MeetingServiceTest {
         Meeting meetingToAdd = new Meeting(0xFFEF5350,"Test meeting", "10-05-2020", "09h00","Bangkok","eddy@lamzon.com");
         mService.addMeeting(meetingToAdd);
         assertTrue(mService.getMeetings().contains(meetingToAdd));
+    }
+
+    @Test
+    public void addMeetingNotFullCompleted() {
+        Meeting meetingToAdd = new Meeting(0xFFEF5350,"", "", "","Choisir une salle","");
+        try{
+        mService.addMeeting(meetingToAdd);
+            Assert.fail("Exception should occur");
+        }catch (IllegalArgumentException e) {
+
+        }
     }
 
     @Test

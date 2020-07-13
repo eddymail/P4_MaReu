@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,12 +21,15 @@ import androidx.fragment.app.DialogFragment;
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.model.Meeting;
+import com.lousssouarn.edouard.mareu.service.DummyMeetingGenerator;
 import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 import com.lousssouarn.edouard.mareu.views.MeetingRecyclerViewAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class FilterDialogFragment extends DialogFragment {
     private MeetingApiService mApiService;
@@ -34,7 +38,7 @@ public class FilterDialogFragment extends DialogFragment {
     private String mRoomName;
     private String mDate;
 
-    Spinner mRoomInput;
+    Spinner mSpinner;
     EditText mDateInput;
     Button mRoomFilter;
     Button mDateFilter;
@@ -50,18 +54,26 @@ public class FilterDialogFragment extends DialogFragment {
 
         mApiService = DI.getMeetingApiService();
 
-        mRoomInput = view.findViewById(R.id.sp_room);
+        mSpinner = view.findViewById(R.id.sp_room);
         mRoomFilter = view.findViewById(R.id.bt_room_filter);
         mDateInput = view.findViewById(R.id.et_date_input);
         mDateFilter = view.findViewById(R.id.bt_date_filter);
 
         //Spinner meeting room list
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(view.getContext(), R.array.filterRooms, android.R.layout.simple_spinner_item);
+        List<Meeting> meetings = DummyMeetingGenerator.DUMMY_MEETINGS;
+        List<String> result = new ArrayList<>();
+        for (Meeting meeting : meetings) {
+            String roomName = meeting.getRoomName();
+            result.add(roomName);
+        }
+        result.add(0,"Toutes les salles");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_spinner_item, result);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mRoomInput.setAdapter(adapter);
+        mSpinner.setAdapter(adapter);
 
         //Recovery the selected room
-        mRoomInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mRoomName = parent.getItemAtPosition(position).toString();
@@ -96,10 +108,16 @@ public class FilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 mMeetings = mApiService.getMeetingsByDate(mDateInput.getText().toString());
+                String date = mDateInput.getText().toString();
                 if(mAdapter != null) {
-                    mAdapter.upDateMeetings(mMeetings);
+                    if(date.matches(""))
+                        Toast.makeText(getContext(), "Vous devez renseigner une date de réunion !", Toast.LENGTH_SHORT).show();
+                   else{
+                        mAdapter.upDateMeetings(mMeetings);
+                        dismiss();
+                    }
                 }
-                dismiss();
+
             }
         });
 

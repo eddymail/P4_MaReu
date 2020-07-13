@@ -20,10 +20,13 @@ import android.widget.Toast;
 import com.lousssouarn.edouard.mareu.R;
 import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.model.Meeting;
+import com.lousssouarn.edouard.mareu.service.DummyMeetingGenerator;
 import com.lousssouarn.edouard.mareu.service.MeetingApiService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -63,7 +66,15 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         mTimeInput.setInputType(InputType.TYPE_NULL);
 
         //Spinner meeting room list
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.nameRooms, android.R.layout.simple_spinner_item);
+        List<Meeting> meetings = DummyMeetingGenerator.DUMMY_MEETINGS;
+        List<String> result = new ArrayList<>();
+        for (Meeting meeting : meetings) {
+           String roomName = meeting.getRoomName();
+           result.add(roomName);
+        }
+        result.add(0,"Choisir une salle");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, result);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
         mSpinner.setOnItemSelectedListener(this);
@@ -87,12 +98,13 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View v) {
 
-                //collect of user input
+                //collect user input
                 name = mNameInput.getText().toString();
                 date = mDateInput.getText().toString();
                 time = mTimeInput.getText().toString();
                 participants = mParticipantsInput.getText().toString();
 
+                //check if all data have been completed
                 if(room.matches("Choisir une salle"))
                     Toast.makeText(AddMeeting.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
                 else if (name.matches(""))
@@ -199,14 +211,22 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         return newMeetingColor;
     }
 
-    //Add the created meeting and it to metings list
+    //Add the created meeting and it to meetings list
     public void createMeeting() {
 
         color = getRoomColor(mSpinner);
 
         Meeting meeting = new Meeting(color,name, date, time, room, participants);
 
-        mApiService.addMeeting(meeting);
+        try {
+            mApiService.addMeeting(meeting);
+        }
+        catch (IllegalArgumentException e)
+        {
+            // todo error toast
+            Toast.makeText(getBaseContext(),"Input Field is Empty", Toast.LENGTH_LONG).show();
+        }
     }
+
 
 }

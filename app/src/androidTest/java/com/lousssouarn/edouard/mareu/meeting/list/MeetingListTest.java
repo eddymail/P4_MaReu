@@ -1,11 +1,14 @@
 package com.lousssouarn.edouard.mareu.meeting.list;
 
+import android.app.Activity;
+
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.lousssouarn.edouard.mareu.R;
+import com.lousssouarn.edouard.mareu.controler.AddMeeting;
 import com.lousssouarn.edouard.mareu.controler.ListMeetingActivity;
 import com.lousssouarn.edouard.mareu.di.DI;
 import com.lousssouarn.edouard.mareu.utils.DeleteViewAction;
@@ -20,13 +23,16 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.lousssouarn.edouard.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.assertThat;
@@ -78,10 +84,29 @@ public class MeetingListTest {
         int itemCount = DI.getMeetingApiService().getMeetings().size();
         //When : we click on "add item" floatingActionButton, create a new meeting call "Test meeting", and click on "new meeting button"
         onView(withId(R.id.add_item)).perform(click());
+        final String item = "Bangkok";
+        onData(allOf(is(instanceOf(String.class)), is(item))).perform();
         onView(withId(R.id.et_name)).perform(replaceText("Test meeting"));
+        onView(withId(R.id.et_participants)).perform(replaceText("eric@lamzone.com"));
+        onView(withId(R.id.et_date_input)).perform(replaceText("11-06-2020"));
+        onView(withId(R.id.et_time_input)).perform(replaceText("9h30"));
         onView(withId(R.id.bt_new_meeting)).perform(click());
         //Then : we ensure there is one more element in the recyclerview
         onView(withId(R.id.meeting_list)).check(withItemCount(itemCount+1));
+    }
+
+    @Test
+    public void addNewMeetingIncompleteTest() {
+        //When : we click on "add item" floatingActionButton, create a new meeting call "Test meeting", and click on "new meeting button"
+        onView(withId(R.id.add_item)).perform(click());
+        final String item = "Bangkok";
+        onData(allOf(is(instanceOf(String.class)), is(item))).perform();
+        onView(withId(R.id.et_name)).perform(replaceText("Test meeting"));
+        onView(withId(R.id.et_participants)).perform(replaceText("eric@lamzone.com"));
+        onView(withId(R.id.et_date_input)).perform(replaceText("11-06-2020"));
+        onView(withId(R.id.bt_new_meeting)).perform(click());
+        //Then : we ensure there toast make text
+        onView(withText("Vous devez renseigner une heure de réunion !")).inRoot(withDecorView(not(mActivity.getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
     @Test
