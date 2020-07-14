@@ -211,7 +211,7 @@ public class AddMeeting extends AppCompatActivity implements AdapterView.OnItemS
         return newMeetingColor;
     }
 
-    //Add the created meeting and it to meetings list
+    //Add the created meeting to meetings list
     public void createMeeting() {
 
         color = getRoomColor(mSpinner);
