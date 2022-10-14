@@ -1,16 +1,15 @@
 # MaReu
 
-## Informations générales
-Ce dépôt contient une mini-application pour le P4 du parcours **Grande École du Numérique**.
-C'est une application de gestion de réunion pour l'entreprise Lamzone 
+## General informations
+This repository contains a mini-application for P4 project of the **Grande École du Numérique** course.
+It is a meeting management application for the company Lamzone
 
-
-## Démarrage
-Pour ouvrir le projet sous Android Studio.
-* Dans le menu VCS
-  * import from version control 
-  * git 
-  * Renseigner ensuite l'URL du repository.
+## Startup
+To open the project in Android Studio.
+* In the VCS menu
+  * import from version control
+  * git
+  * Then enter the URL of the repository.
 
 ## Auteur
 * Edouard Loussouarn
